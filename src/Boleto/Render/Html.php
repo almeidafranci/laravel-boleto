@@ -202,4 +202,24 @@ class Html implements HtmlContract
             'mostrar_instrucoes' => (bool) $this->showInstrucoes,
         ])->render();
     }
+
+    /**
+     * função para gerar o carne interno
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public function gerarCarneInterno()
+    {
+        if (count($this->boleto) == 0) {
+            throw new \Exception('Nenhum Boleto adicionado');
+        }
+
+        return $this->getBlade()->make('BoletoHtmlRender::carne-interno', [
+            'boletos' => $this->boleto,
+            'css' => $this->writeCss(),
+            'imprimir_carregamento' => (bool) $this->print,
+            'mostrar_instrucoes' => (bool) $this->showInstrucoes,
+        ])->render();
+    }
 }
